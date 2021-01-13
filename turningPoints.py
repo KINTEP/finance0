@@ -1,3 +1,18 @@
+import pandas as pd
+import numpy as np
+
+def normalize(sequence):
+    max1 = np.max(sequence)
+    min1 = np.min(sequence)
+    data = []
+    for val in sequence:
+        if max1 - min1 == 0:
+            data.append(0)
+        else:
+            norm = (val - min1)/(max1 - min1)
+            data.append(norm)
+    return data
+
 def turning_points(seq, wind = 5):
     start = 0
     end = wind
