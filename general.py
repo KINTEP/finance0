@@ -1,3 +1,5 @@
+import numpy as np
+
 def detrend(sequence):
     "This takes a sequence and outputs the difference between two successive elements"
     diffs = [0]
@@ -7,12 +9,21 @@ def detrend(sequence):
         diffs.append(sequence[prev] - sequence[now])
     return diffs
 
+def detrend2(sequence):
+    "This takes a sequence and outputs the difference between two successive elements"
+    diffs = [0]
+    for i in range(1, len(sequence)):
+        prev = i - 1
+        now = i
+        diffs.append(np.exp(sequence[prev] - sequence[now]))
+    return diffs
+
 def normalize(sequence):
     max1 = np.max(sequence)
     min1 = np.min(sequence)
     data = []
     for val in sequence:
-        norm = (val - min1)/(max1 - min1)
+        norm = ((val - min1)+1)/((max1 - min1)+1)
         data.append(norm)
     return data
 
@@ -35,3 +46,13 @@ def extractOHLC(open1, high, low, close):
     for i in range(N):
         list_data.append([open1[i], high[i], low[i], close[i]])
     return list_data
+
+
+def ratios(sequence):
+    "This takes a sequence and outputs the difference between two successive elements"
+    diffs = [0]
+    for i in range(1, len(sequence)):
+        prev = i - 1
+        now = i
+        diffs.append(((sequence[prev])+1)/((sequence[now]+1)))
+    return diffs
